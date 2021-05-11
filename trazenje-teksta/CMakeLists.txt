@@ -1,6 +1,12 @@
 project(trazenje-teksta)
 
-set(LIBSRCS "src/lib/boyer-moore.cpp")
+set(
+    LIBSRCS 
+    "src/lib/boyer-moore.cpp"
+    "src/lib/boyer-moore/bcr.cpp"
+    "src/lib/boyer-moore/gsr.cpp"
+)
+
 set(EXESRCS "src/bin/main.cpp")
 
 add_executable(main ${EXESRCS})

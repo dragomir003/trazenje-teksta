@@ -21,7 +21,7 @@ Test(boyer_moore, bad_character_rule) {
 		{ 'n', 0, 1 },
 		{ 'p', 0, 4 },
 		{ 'k', 3, 5 },
-		{ 'm', 4, 1 } // Correct move is 1 because bad_character_rule should return 0 or less
+		{ 'm', 4, -1 }
 	};
 
 	for (const auto& t : correct_values) {

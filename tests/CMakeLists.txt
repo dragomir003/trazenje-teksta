@@ -3,12 +3,21 @@ project(tests)
 add_executable(boyer-moore "src/boyer-moore.cpp")
 target_link_libraries(boyer-moore PRIVATE trazenje-teksta criterion)
 
-add_executable(bad-character-rule "src/bad-character-rule.cpp")
+add_executable(bad-character-rule "src/boyer-moore/bad-character-rule.cpp")
 target_link_libraries(bad-character-rule PRIVATE trazenje-teksta criterion)
 
-add_executable(bcr-table-creation "src/bcr-table-creation.cpp")
+add_executable(bcr-table-creation "src/boyer-moore/bcr-table-creation.cpp")
 target_link_libraries(bcr-table-creation PRIVATE trazenje-teksta criterion)
 
-add_test(NAME boyer-moore COMMAND boyer-moore)
+add_executable(gsr-table-creation "src/boyer-moore/gsr-table-creation.cpp")
+target_link_libraries(gsr-table-creation PRIVATE trazenje-teksta criterion)
+
+add_executable(good-suffix-rule "src/boyer-moore/good-suffix-rule.cpp")
+target_link_libraries(good-suffix-rule PRIVATE trazenje-teksta criterion)
+
+
+add_test(NAME boyer-moore        COMMAND boyer-moore)
 add_test(NAME bad-character-rule COMMAND bad-character-rule)
 add_test(NAME bcr-table-creation COMMAND bcr-table-creation)
+add_test(NAME gsr-table-creation COMMAND gsr-table-creation)
+add_test(NAME good-suffix-rule   COMMAND good-suffix-rule)
