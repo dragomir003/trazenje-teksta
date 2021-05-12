@@ -5,6 +5,8 @@ set(
     "src/lib/boyer-moore.cpp"
     "src/lib/boyer-moore/bcr.cpp"
     "src/lib/boyer-moore/gsr.cpp"
+    "src/lib/knuth-morris-pratt/kmp_table.cpp"
+    "src/lib/knuth-morris-pratt.cpp"
 )
 
 set(EXESRCS "src/bin/main.cpp")
