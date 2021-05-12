@@ -1,5 +1,7 @@
 #include <criterion/criterion.h>
 
+#include <string_view.h>
+
 #include <vector>
 #include <map>
 #include <array>
@@ -7,8 +9,12 @@
 using KmpTable = std::vector<int>;
 
 extern auto create_kmp_table(const char *) -> KmpTable;
+extern auto find_prefixes(const StringView&) -> std::vector<StringView>;
+extern auto find_suffixes(const StringView&) -> std::vector<StringView>;
+extern auto find_prefix_suffixes(const StringView&) -> std::vector<StringView>;
 
-auto are_tables_equal(const KmpTable& lhs, const KmpTable& rhs) -> bool {
+template<typename T>
+auto are_vectors_equal(const std::vector<T>& lhs, const std::vector<T>& rhs) -> bool {
     if (lhs.size() != rhs.size())
         return false;
 
@@ -32,7 +38,55 @@ Test(knuth_morris_pratt, kmp_table_creation) {
 
         const auto table = create_kmp_table(pattern);
 
-        cr_assert(are_tables_equal(table, correct_table));
+        cr_assert(are_vectors_equal<int>(table, correct_table));
     }
+}
 
+Test(knuth_morris_pratt, find_prefixes) {
+    const std::map<StringView, std::vector<StringView>> prefixes{
+        { "aabc", { "", "a", "aa", "aab" } },
+        { "pattern", { "", "p", "pa", "pat", "patt", "patte", "patter" }}
+    };
+
+    for (const auto& kvp : prefixes) {
+        const auto s = kvp.first;
+        const auto correct = kvp.second;
+
+        const auto pres = find_prefixes(s.start);
+
+        cr_assert(are_vectors_equal<StringView>(correct, pres));
+    }
+}
+
+Test(knuth_morris_pratt, find_suffixes) {
+    const std::map<StringView, std::vector<StringView>> suffixes{
+        { "aabc", { "", "c", "bc", "abc" } },
+        { "pattern", { "", "n", "rn", "ern", "tern", "ttern", "attern" }}
+    };
+
+    for (const auto& kvp : suffixes) {
+        const auto s = kvp.first;
+        const auto correct = kvp.second;
+
+        const auto suffs = find_suffixes(s);
+
+        cr_assert(are_vectors_equal<StringView>(correct, suffs));
+    }
+}
+
+Test(knuth_morris_pratt, find_prefix_suffixes) {
+    const std::map<StringView, std::vector<StringView>> pss{
+        { "aabc", { "" } },
+        { "abca", { "", "a" } },
+        { "abcabc", { "", "abc" } }
+    };
+
+    for (const auto& kvp : pss) {
+        const auto s = kvp.first;
+        const auto correct = kvp.second;
+
+        const auto ps = find_prefix_suffixes(s);
+
+        cr_assert(are_vectors_equal<StringView>(correct, ps));
+    }
 }

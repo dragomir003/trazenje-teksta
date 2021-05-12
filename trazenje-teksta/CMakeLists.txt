@@ -7,6 +7,7 @@ set(
     "src/lib/boyer-moore/gsr.cpp"
     "src/lib/knuth-morris-pratt/kmp_table.cpp"
     "src/lib/knuth-morris-pratt.cpp"
+    "src/lib/knuth-morris-pratt/string_view.cpp"
 )
 
 set(EXESRCS "src/bin/main.cpp")

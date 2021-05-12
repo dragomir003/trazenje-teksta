@@ -20,6 +20,7 @@ target_link_libraries(good-suffix-rule PRIVATE trazenje-teksta criterion)
 
 add_executable(kmp-table-creation "src/knuth-morris-pratt/kmp-table-creation.cpp")
 target_link_libraries(kmp-table-creation PRIVATE trazenje-teksta criterion)
+target_include_directories(kmp-table-creation PRIVATE "${PROJECT_SOURCE_DIR}/../trazenje-teksta/src/include/")
 
 add_test(NAME boyer-moore        COMMAND boyer-moore)
 add_test(NAME knuth-morris-pratt COMMAND knuth-morris-pratt)

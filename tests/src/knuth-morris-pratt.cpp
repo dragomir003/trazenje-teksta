@@ -7,6 +7,8 @@ using KmpTable = std::vector<int>;
 
 extern auto knuth_morris_pratt(const char*, const char*) -> int;
 
+#include <iostream>
+
 Test(knuth_morris_pratt, knuth_morris_pratt_search) {
     const std::map<std::pair<const char*, const char*>, int> results{
         { { "abcd", "a" }, 0 },
@@ -24,6 +26,8 @@ Test(knuth_morris_pratt, knuth_morris_pratt_search) {
         std::tie(text, pattern) = tp;
 
         const auto result = knuth_morris_pratt(text, pattern);
+
+        std::cout << result << ' ' << correct_result << '\n';
 
         cr_assert(result == correct_result);
     }
